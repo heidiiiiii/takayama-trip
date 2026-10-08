@@ -1,0 +1,1441 @@
+<!doctype html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2026 名古屋・高山・大阪秋日旅行</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap");
+      :root {
+        --paper: #f8f3ea;
+        --ink: #3f3a32;
+        --muted: #7c7264;
+        --maple: #b9472f;
+        --persimmon: #d47b45;
+        --moss: #64735a;
+        --indigo: #485f73;
+        --gold: #d7a94d;
+        --line: rgba(185, 71, 47, 0.22);
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: "Noto Sans TC", sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(215, 169, 77, 0.16), transparent 32rem),
+          linear-gradient(180deg, #fffaf1 0%, var(--paper) 45%, #eef2ed 100%);
+        color: var(--ink);
+        -webkit-tap-highlight-color: transparent;
+      }
+      .glass {
+        background: rgba(255, 250, 241, 0.88);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+      }
+      .hero {
+        background:
+          linear-gradient(135deg, rgba(86, 99, 72, 0.95), rgba(185, 71, 47, 0.9)),
+          url("https://images.unsplash.com/photo-1478436127897-769e1b3f0f36?auto=format&fit=crop&w=1200&q=80");
+        background-size: cover;
+        background-position: center;
+      }
+      .hero::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.05), rgba(44, 36, 28, 0.32));
+      }
+      .leaf {
+        position: absolute;
+        border-radius: 70% 0 70% 0;
+        transform: rotate(45deg);
+        opacity: 0.28;
+      }
+      .timeline-line::before {
+        content: "";
+        position: absolute;
+        left: 40px;
+        top: 20px;
+        bottom: 20px;
+        width: 1px;
+        background: var(--line);
+        z-index: 0;
+      }
+      .expand-content {
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: max-height 0.35s ease, opacity 0.25s ease;
+      }
+      .expanded .expand-content {
+        max-height: 3200px;
+        opacity: 1;
+      }
+      .check-item input[type="checkbox"]:checked + div {
+        background: var(--moss);
+        border-color: var(--moss);
+      }
+      .check-item input[type="checkbox"]:checked + div::after {
+        content: "✓";
+        color: white;
+        font-size: 11px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+      }
+      .check-item input[type="checkbox"]:checked ~ span {
+        text-decoration: line-through;
+        opacity: 0.52;
+      }
+      .bottom-nav {
+        width: min(95vw, 430px);
+        overflow-x: auto;
+        scrollbar-width: none;
+      }
+      .bottom-nav::-webkit-scrollbar { display: none; }
+      button, a { touch-action: manipulation; }
+      .event-card {
+        width: 100%;
+        min-width: 0;
+        overflow: hidden;
+      }
+      .event-title {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .event-loc {
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display: block;
+      }
+      .place-pill {
+        width: fit-content;
+        max-width: 100%;
+        min-width: 0;
+        flex: 0 1 auto;
+        box-sizing: border-box;
+        justify-content: flex-start;
+      }
+      .place-pill span {
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .transport-row {
+        display: block;
+        min-width: 0;
+      }
+      .transport-label {
+        color: #485f73;
+        font-weight: 900;
+      }
+      .transport-strong {
+        color: #3f3a32;
+        font-weight: 900;
+      }
+      .transport-red {
+        color: #b9472f;
+        font-weight: 900;
+      }
+      .transport-blue {
+        color: #485f73;
+        font-weight: 900;
+      }
+      .transport-green {
+        color: #64735a;
+        font-weight: 900;
+      }
+    </style>
+  </head>
+  <body class="pb-24">
+    <section class="hero relative overflow-hidden px-6 pt-8 pb-7 text-white">
+      <span class="leaf w-20 h-20 bg-[#d7a94d] -top-6 left-8"></span>
+      <span class="leaf w-14 h-14 bg-[#f4c26b] bottom-8 right-10"></span>
+      <div class="relative z-10 max-w-md mx-auto">
+        <p class="text-[10px] font-black tracking-[0.32em] uppercase text-white/75">Family Trip</p>
+        <h1 class="mt-1 text-[31px] leading-tight font-black tracking-tight">名古屋・高山・大阪</h1>
+        <p class="mt-1 text-[12px] font-bold tracking-[0.26em] uppercase text-white/80">2026 Autumn</p>
+        <div class="mt-5 flex items-center gap-2 text-[13px] font-bold text-white/90">
+          <i data-lucide="map" class="w-4 h-4"></i>
+          <span>7天行程表</span>
+        </div>
+      </div>
+    </section>
+
+    <header class="sticky top-0 z-40 glass px-5 py-4 shadow-md shadow-[#6f4b2d]/10">
+      <div class="max-w-md mx-auto flex justify-between items-center">
+        <div class="min-w-0 pr-3">
+          <div class="flex items-center gap-2">
+            <span class="text-[9px] bg-[#64735a] text-white px-2 py-1 font-black tracking-widest rounded-md">OCT 2026</span>
+            <h2 class="text-[16px] font-black text-[#3f3a32] truncate" id="header-title">行程總覽</h2>
+          </div>
+          <p class="text-[11px] text-[#7c7264] font-bold mt-1" id="header-subtitle">Trip Summary</p>
+        </div>
+        <div class="text-right shrink-0" id="weather-widget">
+          <div class="flex items-center justify-end text-[#b9472f] font-black leading-none">
+            <span class="text-sm" id="temp-val">--°C</span>
+            <i data-lucide="thermometer" class="w-3.5 h-3.5 ml-1"></i>
+          </div>
+          <p class="text-[9px] text-[#7c7264] font-black tracking-widest uppercase mt-1" id="header-loc">Nagoya</p>
+        </div>
+      </div>
+    </header>
+
+    <main class="max-w-md mx-auto px-4 py-4 relative" id="main-content"></main>
+
+    <nav class="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 glass bottom-nav rounded-[24px] shadow-2xl shadow-[#6f4b2d]/20 p-1.5">
+      <div class="flex items-center justify-center gap-1 w-full">
+        <button onclick="setView('home')" id="btn-home" class="nav-main w-8 h-8 rounded-2xl flex items-center justify-center transition-all bg-[#b9472f] text-white shadow-lg">
+          <i data-lucide="home" class="w-4 h-4"></i>
+        </button>
+        <button onclick="setView('checklist')" id="btn-checklist" class="nav-main w-8 h-8 rounded-2xl flex items-center justify-center transition-all text-[#7c7264]">
+          <i data-lucide="list-checks" class="w-4 h-4"></i>
+        </button>
+        <button onclick="setView('tips')" id="btn-tips" class="nav-main w-8 h-8 rounded-2xl flex items-center justify-center transition-all text-[#7c7264]">
+          <i data-lucide="lightbulb" class="w-4 h-4"></i>
+        </button>
+        <button onclick="setView('lang')" id="btn-lang" class="nav-main w-8 h-8 rounded-2xl flex items-center justify-center transition-all text-[#7c7264]">
+          <i data-lucide="languages" class="w-4 h-4"></i>
+        </button>
+        <div class="w-px h-6 bg-[#d8cbb7] mx-1"></div>
+        <button onclick="setView(1)" class="day-btn w-8 h-8 rounded-xl flex items-center justify-center text-[11px] font-black text-[#7c7264]">D1</button><button onclick="setView(2)" class="day-btn w-8 h-8 rounded-xl flex items-center justify-center text-[11px] font-black text-[#7c7264]">D2</button><button onclick="setView(3)" class="day-btn w-8 h-8 rounded-xl flex items-center justify-center text-[11px] font-black text-[#7c7264]">D3</button><button onclick="setView(4)" class="day-btn w-8 h-8 rounded-xl flex items-center justify-center text-[11px] font-black text-[#7c7264]">D4</button><button onclick="setView(5)" class="day-btn w-8 h-8 rounded-xl flex items-center justify-center text-[11px] font-black text-[#7c7264]">D5</button><button onclick="setView(6)" class="day-btn w-8 h-8 rounded-xl flex items-center justify-center text-[11px] font-black text-[#7c7264]">D6</button><button onclick="setView(7)" class="day-btn w-8 h-8 rounded-xl flex items-center justify-center text-[11px] font-black text-[#7c7264]">D7</button>
+      </div>
+    </nav>
+
+    <script>
+      const mapListUrl = "https://maps.app.goo.gl/iBe1cTLjeXLpFmKTA";
+      const tripData = {
+  "1": {
+    "title": "桃園出發・名古屋・高山",
+    "date": "2026 / 10 / 13-14",
+    "dayLabel": "星期二-三",
+    "location": "Takayama",
+    "reminder": "護照要記得帶！\n Visit Japan Web QR Code記得存在手機！",
+    "events": [
+      {
+        "time": "22:50",
+        "type": "交通",
+        "title": "包車前往桃園機場 T1",
+        "loc": "桃園國際機場第一航廈",
+        "color": "travel",
+        "intro": "晚班出發，帶個頸枕飛機上比較好睡。",
+        "note": "記得檢查護照是否有帶！"
+      },
+      {
+        "time": "00:10",
+        "type": "交通",
+        "title": "桃園機場 T1 報到",
+        "loc": "TPE T1 樂桃 MM722",
+        "color": "travel",
+        "transport": "✈️ **樂桃航空 MM722**\n起飛 02:10 TPE 桃園 T1 \n抵達 06:05 NGO 名古屋 T1 \n {blue:座位：10C、10D、10E、10F}",
+        "intro": "請檢查 Visit Japan Web 的 QR Code 截圖是否已保存。",
+        "note": "1. 樂桃為廉航，報到櫃檯於起飛前 50 分鐘準時關閉。\n2. 第一航廈人潮多，建議 00:10 抵達櫃檯。\n3. 確認手提行李限重 7kg 以內，三邊合計 < 115CM。"
+      },
+      {
+        "time": "06:05",
+        "type": "交通",
+        "title": "抵達中部國際機場 T1",
+        "loc": "Chubu Centrair International Airport Terminal 1",
+        "color": "travel",
+        "intro": "入境後開通 eSIM，準備搭名鐵進名古屋市區。",
+        "note": "• 落地開通E-SIM\n• 準備好Visit Japan Web 的 QR Code加速通關"
+      },
+      {
+        "time": "07:20",
+        "type": "交通",
+        "title": "名鐵前往名鐵名古屋站",
+        "loc": "名鐵中部國際機場站",
+        "color": "travel",
+        "transport": "🚊 **參考班次** [時刻表](https://trainbus.meitetsu.co.jp/meitetsu-transfer-zh-tw/pc/diagram/TrainDiagram?startId=00009406&linkId=00001057&direction=up&rule=&datetime=2026-10-14)\n07:26-08:08 特別車+¥450\n07:38-08:29\n08:00-08:43 特別車+¥450",
+        "intro": "車程約 30-40 分鐘。到站後先去買早餐，帶上巴士吃。"
+      },
+      {
+        "time": "09:30",
+        "type": "交通",
+        "title": "濃飛巴士前往高山",
+        "loc": "名鐵巴士中心",
+        "color": "travel",
+        "transport": "🚐 **13309 1 號車** 名古屋-高山線\n出發 09:30 名鐵巴士中心，7 號月台\n抵達 12:20 高山濃飛巴士中心 \n {blue:座位：02A、02B、02C、02D}",
+        "intro": "[車票](https://www.highwaybus.com/gp/inbound/inbWebticketPrint?81cf3393d26bb340156b8d412e9480c3&lang=CZ1&ticket_type=mobile#1)\n 車程約 3 小時，中間停靠一個休息站。",
+        "note": "[參考文章](https://plusweiplus.com/nagoya-takayama-bus-exp/)\n• 車上有插座或是USD充電孔以及洗手間\n• 休息站停靠時間約十分鐘，如果要上廁所，會來不及逛休息站"
+      },
+      {
+        "time": "12:20",
+        "type": "住宿",
+        "title": "高山飯店寄放行李",
+        "loc": "高山知豪酒店",
+        "color": "stay",
+        "transport": "高山濃飛巴士中心出來步行約 3 分鐘。",
+        "intro": "先拿4人護照去飯店登記寄放行李",
+        "note": "🧳15:00可Check-in"
+      },
+      {
+        "time": "13:00",
+        "type": "用餐",
+        "title": "午餐：助春炸肉餅",
+        "loc": "助春-炸牛肉餅",
+        "color": "food",
+        "transport": "🚶‍➡️飯店步行約 15 分鐘\n 🚌搭公車約 15 分鐘\n 🚕叫車約 5 分鐘",
+        "intro": "高山老街附近的飛驒牛餐廳，主打炸肉餅、漢堡排與煎牛排。"
+      },
+      {
+        "time": "14:00",
+        "type": "觀光",
+        "title": "高山老街散策",
+        "loc": "高山三町傳統建築群",
+        "color": "sight",
+        "intro": "午餐後逛三町老街，沿著古町家、酒藏與小吃慢慢走，累了就回飯店休息。\n 必吃：飛驒牛串燒、飛驒牛握壽司、",
+        "saved": [
+          "原田酒造場 日本酒「山車」",
+          "[味噌：大のや醸造](https://maps.app.goo.gl/ErQLxJZbquyiRsfz6)",
+          "[串燒：六拾番](https://maps.app.goo.gl/R9S6Y2SjHGL3YrjQ8)",
+          "[壽司：こって牛](https://maps.app.goo.gl/P6cdo89wySH7RE4R8)",
+          "[飛驒牛包子：飛騨牛まん本舗](https://maps.app.goo.gl/Pc4CyGSqauzqYVJA8)",
+          "高山布丁亭",
+          "[米飛兔專賣店](https://maps.app.goo.gl/tLDYRCviBJvgAonq7)",
+          "[棉花糖壽喜燒：岩ト屋](https://maps.app.goo.gl/28DzL8TiThdNQbW58)",
+          "[下午茶：恵那川上屋](https://maps.app.goo.gl/tbhHnbGrwqzcWF8D6)"
+        ]
+      },
+      {
+        "time": "17:00",
+        "type": "住宿",
+        "title": "飯店 Check-in",
+        "loc": "高山知豪酒店",
+        "color": "stay",
+        "intro": "把戰利品放好，晚餐前稍微休息。"
+      },
+      {
+        "time": "18:00",
+        "type": "購物",
+        "title": "Frespo 飛驒高山附近採買",
+        "loc": "Frespo 飛驒高山",
+        "color": "shop",
+        "transport": "🚕從飯店叫車約 5 分鐘",
+        "intro": "小型商店區，有 Alpen、ABC-MART、UNIQLO與超市。",
+        "saved": [
+          "優衣庫 Frespo高山店",
+          "ABC-MART Frespo Hida Takayama shop",
+          "Alpen",
+          "Surugaya Every Frespo"
+        ],
+        "note": "20:00關門，記得購買隔天早餐"
+      },
+      {
+        "time": "19:30",
+        "type": "用餐",
+        "title": "晚餐：天獅子居酒屋",
+        "loc": "天獅子",
+        "color": "food",
+        "transport": "🚶‍➡️Frespo步行約 5 分鐘。",
+        "intro": "便宜好吃的居酒屋",
+        "note": "18:00~22:00"
+      },
+      {
+        "time": "21:00",
+        "type": "住宿",
+        "title": "回飯店休息",
+        "loc": "高山知豪酒店",
+        "color": "stay",
+        "intro": "結束第一天行程，早點睡覺，明天一早前往上高地。"
+      }
+    ]
+  },
+  "2": {
+    "title": "上高地一日遊",
+    "date": "2026 / 10 / 15",
+    "dayLabel": "星期四",
+    "location": "Kamikochi",
+    "reminder": "上高地 10 月早晚偏冷，外套、雨具要帶。\n 平湯溫泉名產回程再買，別一路扛上山。",
+    "events": [
+      {
+        "time": "07:30",
+        "type": "用餐",
+        "title": "起床吃早餐",
+        "loc": "高山知豪酒店",
+        "color": "food",
+        "intro": "早餐後整理輕便背包，水、雨具、行動電源與外套先放好。"
+      },
+      {
+        "time": "08:40",
+        "type": "交通",
+        "title": "濃飛巴士前往上高地",
+        "loc": "高山濃飛巴士中心",
+        "color": "travel",
+        "transport": "🚐 **高山-平湯溫泉-上高地往復券** [時刻表](https://www-nouhibus-co-jp.translate.goog/route_bus/kamikochi-line-en/?_x_tr_sl=en&_x_tr_tl=zh-TW&_x_tr_hl=en-US)\n 08:40-09:38 [0]高山-[HO37]平湯溫泉\n• 高山濃飛巴士中心 5 號月台\n 10:00-10:16 [HO37]平湯溫泉-[K28]大正池\n• 平湯溫泉 2 號月台",
+        "intro": "轉乘空檔約 20-30 分鐘，可逛逛平湯巴士站內商店，很多當地名產可以買。",
+        "note": "[參考文章](https://gogojp.tw/kamikochi/)\n • 平湯溫泉出發約30分鐘一班車\n• 名產回程再買，別扛上山！"
+      },
+      {
+        "time": "10:16",
+        "type": "觀光",
+        "title": "抵達大正池",
+        "loc": "大正池",
+        "color": "sight",
+        "intro": "先在大正池下車拍照，天氣好時可看燒岳與池面倒影。"
+      },
+      {
+        "time": "10:30",
+        "type": "觀光",
+        "title": "上高地散策",
+        "loc": "上高地",
+        "color": "sight",
+        "transport": "🚶‍➡️沿梓川步道漫步，約 2 小時\n 🚐搭巴士 [K23]大正池-[K30]河童橋",
+        "intro": "體力夠就從大正池一路走到河童橋，沿途經田代池、林道與梓川，是上高地最經典的輕健行路線。\n 或者直接搭巴士到最熱鬧的河童橋區域。",
+        "saved": [
+          "上高地",
+          "五千尺廚房",
+          "Trois Cinq Kamikochi"
+        ],
+        "note": "• 有名的山賊燒定食\n • Trois蘋果派必吃！"
+      },
+      {
+        "time": "15:00",
+        "type": "交通",
+        "title": "巴士返回高山",
+        "loc": "上高地巴士總站",
+        "color": "travel",
+        "transport": "🚐 **高山-平湯溫泉-上高地往復券** [時刻表](https://www-nouhibus-co-jp.translate.goog/route_bus/kamikochi-line-en/?_x_tr_sl=en&_x_tr_tl=zh-TW&_x_tr_hl=en-US)\n [K30]上高地-[HO37]平湯溫泉\n• 約30分鐘一班\n [HO37]平湯溫泉-[0]高山\n• 約1小時一班",
+        "intro": "搭乘巴士返回高山地區。"
+      },
+      {
+        "time": "18:30",
+        "type": "用餐",
+        "title": "晚餐：味之与平",
+        "loc": "味之与平",
+        "color": "food",
+        "transport": "🚶‍➡️飯店步行約 15 分鐘\n 🚌搭公車約 15 分鐘\n 🚕叫車約 5 分鐘",
+        "intro": "已訂位。高山老街上的飛驒牛燒肉與壽喜燒餐廳。"
+      },
+      {
+        "time": "20:00",
+        "type": "住宿",
+        "title": "回飯店休息",
+        "loc": "高山知豪酒店",
+        "color": "stay",
+        "intro": "整理隔天退房物品，早點休息！"
+      }
+    ]
+  },
+  "3": {
+    "title": "宮川朝市・名古屋",
+    "date": "2026 / 10 / 16",
+    "dayLabel": "星期五",
+    "location": "Nagoya",
+    "reminder": "搭乘 13:00 巴士回名古屋。",
+    "events": [
+      {
+        "time": "08:00",
+        "type": "用餐",
+        "title": "宮川朝市逛逛買早餐",
+        "loc": "宮川朝市",
+        "color": "food",
+        "transport": "🚶‍➡️飯店步行約 10 分鐘\n 🚌搭公車約 10 分鐘\n 🚕叫車約 5 分鐘",
+        "intro": "沿宮川河畔逛朝市，適合買水果、漬物、味噌、飛驒牛小點、牛奶、布丁等小點。"
+      },
+      {
+        "time": "10:30",
+        "type": "住宿",
+        "title": "Check-out 並寄放行李",
+        "loc": "高山知豪酒店",
+        "color": "stay",
+        "intro": "退房後行李先寄放飯店，午餐後再回來拿。"
+      },
+      {
+        "time": "11:00",
+        "type": "用餐",
+        "title": "午餐：味藏天國",
+        "loc": "味藏天國",
+        "color": "food",
+        "transport": "🚶‍➡️飯店步行約 5 分鐘",
+        "intro": "高山人氣飛驒牛燒肉店。",
+        "note": "舒涵10:30先去抽號碼牌"
+      },
+      {
+        "time": "13:00",
+        "type": "交通",
+        "title": "濃飛巴士前往名古屋",
+        "loc": "高山濃飛巴士中心",
+        "color": "travel",
+        "transport": "🚐 **13213 1 號車** 名古屋-高山線\n出發 13:30 高山濃飛巴士中心，6號月台\n抵達 15:35 名鐵巴士中心 \n {blue:座位：03C、03D、04C、04D}",
+        "intro": "[車票](https://www.highwaybus.com/gp/inbound/inbWebticketPrint?81cf3393d26bb340156b8d412e9480c3&lang=CZ1&ticket_type=mobile#2)\n車程約 2.5 小時。上車前確認行李都拿齊。",
+        "note": "舒涵先回飯店拿行李"
+      },
+      {
+        "time": "15:35",
+        "type": "住宿",
+        "title": "名古屋飯店 Check-in",
+        "loc": "大和魯內飯店 名古屋新幹線口",
+        "color": "stay",
+        "transport": "🚶‍➡️JR 名古屋站出來步行約 3 分鐘",
+        "intro": "放好行李後前往松坂屋抽蓬萊軒號碼牌。"
+      },
+      {
+        "time": "16:30",
+        "type": "購物",
+        "title": "松坂屋・LACHIC 周邊逛街",
+        "loc": "松坂屋名古屋店",
+        "color": "shop",
+        "transport": "🚕從飯店搭計程車約 20 分鐘。",
+        "intro": "先到蓬萊軒抽號碼牌，再逛松坂屋、LACHIC 與周邊商場。",
+        "saved": [
+          "松坂屋名古屋店",
+          "PARCO 名古屋 西館",
+          "LACHIC"
+        ]
+      },
+      {
+        "time": "18:30",
+        "type": "用餐",
+        "title": "晚餐：熱田蓬萊軒（松阪屋店）",
+        "loc": "熱田蓬萊軒 松坂屋店",
+        "color": "food",
+        "intro": "名古屋鰻魚飯名店，建議用三吃吃法：原味、加蔥芥末、茶泡飯。"
+      },
+      {
+        "time": "20:00",
+        "type": "住宿",
+        "title": "超市買東西回飯店休息",
+        "loc": "大和魯內飯店 名古屋新幹線口",
+        "color": "stay",
+        "intro": "回名古屋站周邊買宵夜，隔天退房前整理行李。",
+        "saved": [
+          "成城石井 大名古屋大廈店",
+          "MaxValu 太閤店"
+        ]
+      }
+    ]
+  },
+  "4": {
+    "title": "榮商圈・近鐵前往大阪",
+    "date": "2026 / 10 / 17",
+    "dayLabel": "星期六",
+    "location": "Osaka",
+    "reminder": "15:00 搭乘近鐵 HINOTORI 到大阪近鐵難波站 已買票。",
+    "events": [
+      {
+        "time": "08:30",
+        "type": "住宿",
+        "title": "飯店 Check-out",
+        "loc": "大和魯內飯店 名古屋新幹線口",
+        "color": "stay",
+        "intro": "行李先寄放飯店，前往榮商圈。"
+      },
+      {
+        "time": "09:00",
+        "type": "用餐",
+        "title": "早餐：Konparu Sakae Nishi",
+        "loc": "Konparu Sakae Nishi",
+        "color": "food",
+        "transport": "🚊地鐵東山線榮站下車，約 2 站。",
+        "intro": "名古屋老牌喫茶店，蝦蝦三明治是招牌。有兩間分店。",
+        "saved": [
+          "Konparu Sakae Nishi",
+          "Konparu Sakaehigashiten"
+        ]
+      },
+      {
+        "time": "10:00",
+        "type": "觀光",
+        "title": "榮商圈",
+        "loc": "榮站",
+        "color": "sight",
+        "intro": "榮是名古屋市中心商圈，可把 Oasis 21、久屋大通公園、名古屋電視塔與百貨商場串在一起走。",
+        "saved": [
+          "中部電力未來塔",
+          "久屋大通公園",
+          "名古屋榮三越",
+          "3COINS+plus MELSA SAKAE"
+        ]
+      },
+      {
+        "time": "14:00",
+        "type": "交通",
+        "title": "回名古屋車站",
+        "loc": "近鐵名古屋站",
+        "color": "travel",
+        "intro": "回飯店取行李與買列車便當分頭進行。",
+        "note": "[買艾許奶油點心](https://www.google.com/maps/place/%E8%89%BE%E8%A8%B1%E5%A5%B6%E6%B2%B9+%C3%89chir%C3%A9+Nagoya/@35.1713752,136.8761027,15.68z/data=!3m1!5s0x600376dc5872cb01:0x4ceb5b055da25ba0!4m6!3m5!1s0x6003771b980d0c31:0x297e966cd689def8!8m2!3d35.1714232!4d136.8827795!16s%2Fg%2F11mb_rjw6w?entry=ttu&g_ep=EgoyMDI2MDkzMC4wIKXMDSoASAFQAw%3D%3D)"
+      },
+      {
+        "time": "15:00",
+        "type": "交通",
+        "title": "近鐵 HINOTORI 前往大阪難波",
+        "loc": "近鐵名古屋站",
+        "color": "travel",
+        "transport": "🚊**HINOTORI 65 號列車**\n出發 15:00 [E01]近鐵名古屋 \n抵達 17:07 [A01]大阪難波 \n{blue:座位：6 車，3A、3B、4A、4B}",
+        "intro": "[Klook車票](https://linkt.to/45LN8fom)。上車前買好車上吃的點心或便當。"
+      },
+      {
+        "time": "17:07",
+        "type": "住宿",
+        "title": "大阪飯店 Check-in",
+        "loc": "KOKO HOTEL Osaka Namba Sennichimae",
+        "color": "stay",
+        "intro": "飯店就在難波/千日前一帶，收拾好東西後可直接去心齋橋與道頓堀。"
+      },
+      {
+        "time": "18:00",
+        "type": "觀光",
+        "title": "心齋橋商店街・道頓堀",
+        "loc": "心齋橋筋商店街",
+        "color": "sight",
+        "intro": "從心齋橋筋一路逛到道頓堀，適合補藥妝、UNIQLO、伴手禮與拍固力果招牌。",
+        "saved": [
+          "UNIQLO Shinsaibashisuji Store",
+          "Le Croissant Shinsaibashi",
+          "MooKEN",
+          "唐吉訶德 道頓堀店",
+          "章魚八 道頓堀總本店"
+        ]
+      },
+      {
+        "time": "19:00",
+        "type": "用餐",
+        "title": "晚餐：燒肉力丸",
+        "loc": "燒肉力丸 難波道頓堀店",
+        "color": "food",
+        "intro": "已訂位。道頓堀附近的日式燒肉餐廳，用餐後可繼續逛心齋橋或唐吉訶德。"
+      },
+      {
+        "time": "21:00",
+        "type": "住宿",
+        "title": "超市/唐吉訶德後回飯店",
+        "loc": "KOKO HOTEL Osaka Namba Sennichimae",
+        "color": "stay",
+        "intro": "難波晚上很好逛，買完戰利品回飯店整理"
+      }
+    ]
+  },
+  "5": {
+    "title": "難波・道頓堀・梅田",
+    "date": "2026 / 10 / 18",
+    "dayLabel": "星期日",
+    "location": "Osaka",
+    "reminder": "梅田商場很大，先決定想逛百貨、甜點、雜貨或地下街，才不會迷路太久。",
+    "events": [
+      {
+        "time": "08:00",
+        "type": "用餐",
+        "title": "早餐：Onigiri Gorichan",
+        "loc": "Onigiri Gorichan Nankai Namba Station",
+        "color": "food",
+        "transport": "🚶‍➡️飯店步行約 11 分鐘",
+        "intro": "飯糰店，可內用或買回飯店吃。",
+        "note": "07:30~21:00，位在難波車站內，可以跟站務員領站內票"
+      },
+      {
+        "time": "11:30",
+        "type": "用餐",
+        "title": "午餐：蟹道樂道頓堀東店",
+        "loc": "蟹道樂 道頓堀東店",
+        "color": "food",
+        "transport": "🚶‍➡️飯店步行約 4 分鐘",
+        "intro": "螃蟹套餐，可點午間限定套餐"
+      },
+      {
+        "time": "13:00",
+        "type": "購物",
+        "title": "梅田逛街",
+        "loc": "梅田站",
+        "color": "shop",
+        "intro": "梅田適合安排成「車站商場美食 + 百貨 + 伴手禮」的午後行程。建議先鎖定 LUCUA、Grand Front Osaka、阪神百貨、阪急百貨其中 2-3 區即可。",
+        "saved": [
+          "Hanadako",
+          "Truffle mini LUCUA1100",
+          "TruffleBAKERY 大阪店",
+          "Okoppe Milk Stand Hanshin Umeda",
+          "grenier 梅田店",
+          "サンリオハウスルクア大阪店"
+        ]
+      },
+      {
+        "time": "17:00",
+        "type": "用餐",
+        "title": "心齋橋找餐廳吃飯",
+        "loc": "心齋橋",
+        "color": "food",
+        "intro": "如果梅田吃了很多小點，晚餐可回心齋橋找輕食或排隊較短的餐廳",
+        "saved": [
+          "但馬屋 心齋橋店",
+          "SUKIYAKI FUJIMOTO"
+        ]
+      },
+      {
+        "time": "19:00",
+        "type": "購物",
+        "title": "心齋橋商店街二刷",
+        "loc": "心齋橋筋商店街",
+        "color": "shop",
+        "intro": "把昨天沒逛完的藥妝、服飾、伴手禮補齊"
+      },
+      {
+        "time": "21:00",
+        "type": "住宿",
+        "title": "超市/唐吉訶德後回飯店",
+        "loc": "KOKO HOTEL Osaka Namba Sennichimae",
+        "color": "stay",
+        "intro": "房間內有小廚房可以使用，可以買消夜回去吃"
+      }
+    ]
+  },
+  "6": {
+    "title": "環球影城或自由活動",
+    "date": "2026 / 10 / 19",
+    "dayLabel": "星期一",
+    "location": "Osaka",
+    "events": [
+      {
+        "time": "全天",
+        "type": "自由",
+        "title": "環球影城 / 自由活動日",
+        "loc": "Universal Studios Japan",
+        "color": "sight",
+        "intro": "USJ：建議早到排隊入園，熱門區域先處理任天堂世界或哈利波特。\n自由活動：可把前幾天沒逛完的難波、梅田、天王寺或周邊景點排在這天。"
+      },
+      {
+        "time": "晚間",
+        "type": "住宿",
+        "title": "回飯店整理行李",
+        "loc": "KOKO HOTEL Osaka Namba Sennichimae",
+        "color": "stay",
+        "intro": "隔天中午要前往機場，今晚先整理好託運行李。"
+      }
+    ]
+  },
+  "7": {
+    "title": "大阪・關西機場・回台灣",
+    "date": "2026 / 10 / 20",
+    "dayLabel": "星期二",
+    "location": "Osaka",
+    "reminder": "請務必再次確認護照！\n 11:00 機場接送，提前 10 分鐘在飯店大廳等候。",
+    "events": [
+      {
+        "time": "08:00",
+        "type": "用餐",
+        "title": "早餐",
+        "loc": "難波",
+        "color": "food",
+        "intro": "附近找咖啡廳，或去黑門市場吃早餐"
+      },
+      {
+        "time": "11:00",
+        "type": "交通",
+        "title": "機場接送",
+        "loc": "KOKO HOTEL Osaka Namba Sennichimae",
+        "color": "travel",
+        "intro": "中文司機，提前 10 分鐘在飯店大廳等候。上車前再次確認護照及東西都有帶齊。"
+      },
+      {
+        "time": "12:00",
+        "type": "用餐",
+        "title": "關西機場逛街吃午餐",
+        "loc": "關西國際機場 T1",
+        "color": "food",
+        "intro": "抵達後可以先逛逛或吃午餐。"
+      },
+      {
+        "time": "13:10",
+        "type": "交通",
+        "title": "關西機場 T1 報到",
+        "loc": "KIX T1 星宇 JX823",
+        "color": "travel",
+        "transport": "✈️ **星宇航空 JX823**\n起飛 15:10 KIX 大阪 T1 \n抵達 17:05 TPE 桃園 T1 \n {blue:座位：37J、37K、38J、38K}",
+        "intro": "行動電源、鋰電池記得放到隨身包。"
+      },
+      {
+        "time": "17:05",
+        "type": "交通",
+        "title": "抵達桃園機場 T1",
+        "loc": "桃園國際機場第一航廈",
+        "color": "travel",
+        "intro": "順利降落！！搭乘機場接送回家！"
+      }
+    ]
+  }
+};
+      const checklistData = [
+  {
+    "category": "證件與票券",
+    "items": [
+      "護照",
+      "機票與電子機票",
+      "Visit Japan Web QR Code 截圖",
+      "其他個人證件"
+    ]
+  },
+  {
+    "category": "支付與通訊",
+    "items": [
+      "日圓現金",
+      "信用卡",
+      "Suica / ICOCA / Apple Pay",
+      "eSIM 或 SIM 卡",
+      "行動電源",
+      "充電線"
+    ]
+  },
+  {
+    "category": "秋天衣物",
+    "items": [
+      "薄外套或防風外套",
+      "好走的鞋子",
+      "發熱衣(上高地用)",
+      "登山杖",
+      "摺疊傘",
+      "帽子"
+    ]
+  },
+  {
+    "category": "健康與隨身",
+    "items": [
+      "常備藥",
+      "腸胃藥",
+      "OK 繃",
+      "面紙",
+      "濕紙巾",
+      "小塑膠袋",
+      "購物用折疊袋"
+    ]
+  },
+  {
+    "category": "個人清潔與保養",
+    "items": [
+      "牙刷、牙膏",
+      "保養與化妝品",
+      "護唇膏",
+      "護手霜"
+    ]
+  }
+];
+      const tipsData = [
+  {
+    "title": "10 月溫差",
+    "icon": "thermometer",
+    "content": "名古屋與大阪白天通常舒適，上高地與高山早晚會明顯偏冷。用薄外套加保暖中層比單件厚衣更好調整。"
+  },
+  {
+    "title": "上高地交通",
+    "icon": "bus",
+    "content": "上高地路線受季節、天候與管制影響，當天以濃飛巴士與現場站務公告為準。回程不要抓最後一班。"
+  },
+  {
+    "title": "購物策略",
+    "icon": "shopping-bag",
+    "content": "榮、心齋橋與梅田都很大，先決定購物目標。退稅與熱門餐廳排隊會吃掉不少時間。"
+  },
+  {
+    "title": "行李重量",
+    "icon": "luggage",
+    "content": "移動日盡量把重物放託運箱。高山到名古屋、名古屋到大阪都有拉行李移動，伴手禮能晚點買就晚點買。"
+  }
+];
+      const phrasesData = [
+  {
+    "cat": "一、萬用開場句",
+    "list": [
+      {
+        "zh": "不好意思 (問路/叫人)",
+        "en": "Excuse me.",
+        "jp": "すみません。",
+        "pron": "Sumimasen."
+      },
+      {
+        "zh": "謝謝您",
+        "en": "Thank you very much.",
+        "jp": "ありがとうございます。",
+        "pron": "Arigatou gozaimasu."
+      },
+      {
+        "zh": "沒問題／不用了",
+        "en": "It's okay. / No, thank you.",
+        "jp": "大丈夫です。",
+        "pron": "Daijoubu desu."
+      },
+      {
+        "zh": "我不太會日文",
+        "en": "I don’t understand Japanese very well.",
+        "jp": "日本語があまり分かりません。",
+        "pron": "Nihongo ga amari wakarimasen."
+      },
+      {
+        "zh": "可以說慢一點嗎？",
+        "en": "Could you speak more slowly?",
+        "jp": "ゆっくり話してもらえますか。",
+        "pron": "Yukkuri hanashite moraemasu ka?"
+      }
+    ]
+  },
+  {
+    "cat": "二、餐廳常用對話",
+    "list": [
+      {
+        "zh": "一位／兩位",
+        "en": "One person / Two people.",
+        "jp": "一人です。／二人です。",
+        "pron": "Hitori desu. / Futari desu."
+      },
+      {
+        "zh": "我有訂位",
+        "en": "I have a reservation.",
+        "jp": "予約しています。",
+        "pron": "Yoyaku shite imasu."
+      },
+      {
+        "zh": "我沒有訂位",
+        "en": "I don’t have a reservation.",
+        "jp": "予約していません。",
+        "pron": "Yoyaku shite imasen."
+      },
+      {
+        "zh": "我要這個 (指菜單)",
+        "en": "I’ll have this, please.",
+        "jp": "これをください。",
+        "pron": "Kore o kudasai."
+      },
+      {
+        "zh": "有什麼推薦的？",
+        "en": "What do you recommend?",
+        "jp": "おすすめは何ですか？",
+        "pron": "Osusume wa nan desu ka?"
+      },
+      {
+        "zh": "請結帳",
+        "en": "Check, please.",
+        "jp": "お会計お願いします。",
+        "pron": "Okaikei onegaishimasu."
+      }
+    ]
+  },
+  {
+    "cat": "三、購物與結帳時",
+    "list": [
+      {
+        "zh": "這個多少錢？",
+        "en": "How much is this?",
+        "jp": "これ,いくらですか？",
+        "pron": "Kore, ikura desu ka?"
+      },
+      {
+        "zh": "可以刷卡嗎？",
+        "en": "Can I pay by credit card?",
+        "jp": "クレジットカードは使えますか？",
+        "pron": "Kurejitto kaado wa tsukaemasu ka?"
+      },
+      {
+        "zh": "我要付現金",
+        "en": "I’ll pay with cash.",
+        "jp": "現金でお願いします。",
+        "pron": "Genkin de onegaishimasu."
+      },
+      {
+        "zh": "不需要袋子",
+        "en": "No bag, please.",
+        "jp": "袋はいりません。",
+        "pron": "Fukuro wa irimasen."
+      },
+      {
+        "zh": "可以免稅嗎？",
+        "en": "Is this tax-free?",
+        "jp": "免税できますか？",
+        "pron": "Menzei dekimasu ka?"
+      }
+    ]
+  },
+  {
+    "cat": "四、交通與搭車",
+    "list": [
+      {
+        "zh": "這裡是 ○○ 嗎？",
+        "en": "Is this ○○?",
+        "jp": "ここは○○ですか？",
+        "pron": "Koko wa ○○ desu ka?"
+      },
+      {
+        "zh": "○○ 在哪裡？",
+        "en": "Where is ○○?",
+        "jp": "○○はどこですか？",
+        "pron": "○○ wa doko desu ka?"
+      },
+      {
+        "zh": "這班車會到 ○○ 嗎？",
+        "en": "Does this train go to ○○?",
+        "jp": "この電車は○○に行きますか？",
+        "pron": "Kono densha wa ○○ ni ikimasu ka?"
+      },
+      {
+        "zh": "可以用 Suica 嗎？",
+        "en": "Can I use Suica?",
+        "jp": "Suicaは使えますか？",
+        "pron": "Suica wa tsukaemasu ka?"
+      }
+    ]
+  },
+  {
+    "cat": "五、飯店常用",
+    "list": [
+      {
+        "zh": "我要辦理入住",
+        "en": "I’d like to check in.",
+        "jp": "チェックインをお願いします。",
+        "pron": "Check-in o onegaishimasu."
+      },
+      {
+        "zh": "我要退房",
+        "en": "I’d like to check out.",
+        "jp": "チェックアウトをお願いします。",
+        "pron": "Check-out o onegaishimasu."
+      },
+      {
+        "zh": "我是預約的 Liang",
+        "en": "I have a reservation under the name Liang.",
+        "jp": "予約のリャンです。",
+        "pron": "Yoyaku no Ryang desu."
+      },
+      {
+        "zh": "可以寄放行李嗎？",
+        "en": "Could you store my luggage?",
+        "jp": "荷物を預かってもらえますか？",
+        "pron": "Nimotsu o azukatte moraemasu ka?"
+      }
+    ]
+  },
+  {
+    "cat": "六、遇到狀況時",
+    "list": [
+      {
+        "zh": "我不太懂",
+        "en": "I don’t really understand.",
+        "jp": "ちょっと分かりません。",
+        "pron": "Chotto wakarimasen."
+      },
+      {
+        "zh": "請再說一次",
+        "en": "Could you say that again?",
+        "jp": "もう一度お願いします。",
+        "pron": "Mou ichido onegaishimasu."
+      },
+      {
+        "zh": "請幫幫我 (緊急)",
+        "en": "Please help me!",
+        "jp": "助けてください。",
+        "pron": "Tasukete kudasai."
+      }
+    ]
+  },
+  {
+    "cat": "七、感謝用語",
+    "list": [
+      {
+        "zh": "沒關係,謝謝你",
+        "en": "It’s okay, thank you.",
+        "jp": "大丈夫です,ありがとうございます。",
+        "pron": "Daijoubu desu, arigatou gozaimasu."
+      }
+    ]
+  }
+];
+      const locationCoords = {
+        Nagoya: { lat: 35.1815, lon: 136.9066 },
+        Takayama: { lat: 36.1461, lon: 137.2522 },
+        Kamikochi: { lat: 36.2475, lon: 137.6384 },
+        Osaka: { lat: 34.6937, lon: 135.5023 },
+      };
+      const typeColors = {
+        travel: "bg-[#e8f0f2] text-[#485f73]",
+        food: "bg-[#fff0df] text-[#b9472f]",
+        sight: "bg-[#edf1e6] text-[#64735a]",
+        stay: "bg-[#f1e6dc] text-[#6a5140]",
+        shop: "bg-[#fff6d8] text-[#8a651b]",
+      };
+      const iconByType = {
+        "交通": "train",
+        "用餐": "utensils",
+        "觀光": "camera",
+        "住宿": "bed",
+        "購物": "shopping-bag",
+        "自由": "sparkles",
+      };
+      let currentView = "home";
+
+      const mapSearch = (query) => "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(query);
+
+      async function updateTemperatureByLocation(locationName) {
+        const coords = locationCoords[locationName];
+        const tempEl = document.getElementById("temp-val");
+        if (!coords) {
+          tempEl.innerText = "--°C";
+          return;
+        }
+        try {
+          const url = "https://api.open-meteo.com/v1/forecast?latitude=" + coords.lat + "&longitude=" + coords.lon + "&current_weather=true";
+          const res = await fetch(url);
+          const data = await res.json();
+          tempEl.innerText = Math.round(data.current_weather.temperature) + "°C";
+        } catch (err) {
+          tempEl.innerText = "--°C";
+        }
+      }
+
+      function setWeatherVisible(isVisible) {
+        document.getElementById("weather-widget").classList.toggle("hidden", !isVisible);
+      }
+
+      function setView(view) {
+        currentView = view;
+        renderContent();
+        renderNav();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      function renderNav() {
+        document.querySelectorAll("nav button").forEach((btn) => {
+          btn.classList.remove("bg-[#b9472f]", "text-white", "shadow-lg");
+          btn.classList.add("text-[#7c7264]");
+        });
+        const activeId = typeof currentView === "number" ? null : "btn-" + currentView;
+        if (activeId && document.getElementById(activeId)) {
+          const btn = document.getElementById(activeId);
+          btn.classList.add("bg-[#b9472f]", "text-white", "shadow-lg");
+          btn.classList.remove("text-[#7c7264]");
+        }
+        document.querySelectorAll(".day-btn").forEach((btn, index) => {
+          const day = index + 1;
+          if (currentView === day) {
+            btn.classList.add("bg-[#b9472f]", "text-white", "shadow-lg");
+            btn.classList.remove("text-[#7c7264]");
+          }
+        });
+      }
+
+      function linkPills(items = []) {
+        if (!items.length) return "";
+        return '<div class="flex flex-wrap items-start gap-2 pt-1 w-full min-w-0">' + items.map((item) => {
+          const match = String(item).match(/^\[([^\]]+)\]\((https?:\/\/[^)]+)\)$/);
+          const name = match ? match[1] : String(item);
+          const url = match ? match[2] : mapSearch(name);
+          return '<a href="' + url + '" target="_blank" onclick="event.stopPropagation()" class="place-pill inline-flex items-center gap-1 rounded-full bg-white px-3 py-1.5 text-[12px] font-bold text-[#485f73] border border-[#d8cbb7]"><i data-lucide="map-pin" class="w-3 h-3 flex-shrink-0"></i><span>' + escapeHtmlText(name) + '</span></a>';
+        }).join("") + '</div>';
+      }
+
+      function renderHome(container) {
+        document.getElementById("header-title").innerText = "行程總覽";
+        document.getElementById("header-subtitle").innerText = "Trip Summary";
+        setWeatherVisible(false);
+        container.classList.remove("timeline-line");
+        container.innerHTML = `
+          <div class="space-y-4 pb-12">
+            <section class="bg-white/90 rounded-3xl p-5 shadow-sm text-center">
+              <h3 class="text-[12px] font-black text-[#b9472f] tracking-widest uppercase mb-4">路線總覽</h3>
+              <div class="flex flex-wrap items-center justify-center gap-2 text-[13px] font-black text-[#3f3a32]">
+                <span>名古屋</span><i data-lucide="chevron-right" class="w-4 h-4 text-[#d7a94d]"></i>
+                <span>高山</span><i data-lucide="chevron-right" class="w-4 h-4 text-[#d7a94d]"></i>
+                <span>上高地</span><i data-lucide="chevron-right" class="w-4 h-4 text-[#d7a94d]"></i>
+                <span>名古屋</span><i data-lucide="chevron-right" class="w-4 h-4 text-[#d7a94d]"></i>
+                <span>大阪</span>
+              </div>
+            </section>
+
+            <section class="grid grid-cols-1 gap-3">
+              <div class="bg-white rounded-3xl p-5 shadow-sm">
+                <div class="flex justify-between items-start border-b border-[#eadfce] pb-4 mb-4">
+                  <div><p class="text-[10px] text-[#7c7264] font-black uppercase">Depart Flight</p><h4 class="text-2xl font-black text-[#3f3a32]">MM 722</h4></div>
+                  <div class="text-right"><p class="text-[12px] font-black text-[#b9472f]">2026-10-14</p><p class="text-[11px] text-[#7c7264] font-bold">樂桃航空</p></div>
+                </div>
+                <div class="flex justify-between items-center">
+                  <div><p class="text-xl font-black">02:10</p><p class="text-xs text-[#7c7264] font-bold">桃園 TPE T1</p></div>
+                  <i data-lucide="plane" class="w-5 h-5 text-[#d7a94d]"></i>
+                  <div class="text-right"><p class="text-xl font-black">06:05</p><p class="text-xs text-[#7c7264] font-bold">名古屋 NGO T1</p></div>
+                </div>
+              </div>
+              <div class="bg-white rounded-3xl p-5 shadow-sm">
+                <div class="flex justify-between items-start border-b border-[#eadfce] pb-4 mb-4">
+                  <div><p class="text-[10px] text-[#7c7264] font-black uppercase">Return Flight</p><h4 class="text-2xl font-black text-[#3f3a32]">JX 823</h4></div>
+                  <div class="text-right"><p class="text-[12px] font-black text-[#b9472f]">2026-10-20</p><p class="text-[11px] text-[#7c7264] font-bold">星宇航空</p></div>
+                </div>
+                <div class="flex justify-between items-center">
+                  <div><p class="text-xl font-black">15:10</p><p class="text-xs text-[#7c7264] font-bold">大阪 KIX T1</p></div>
+                  <i data-lucide="plane" class="w-5 h-5 text-[#d7a94d] rotate-180"></i>
+                  <div class="text-right"><p class="text-xl font-black">17:05</p><p class="text-xs text-[#7c7264] font-bold">桃園 TPE T1</p></div>
+                </div>
+              </div>
+            </section>
+
+            <section class="bg-white rounded-3xl p-5 shadow-sm">
+              <div class="flex items-center justify-between mb-5 gap-3">
+                <h3 class="text-base font-black text-[#3f3a32] flex items-center gap-2"><i data-lucide="luggage" class="w-5 h-5 text-[#b9472f]"></i> 行李重量與規範</h3>
+                <span class="text-[11px] font-black text-[#b9472f] bg-[#fff0df] rounded-full px-3 py-1 whitespace-nowrap">去4 / 回6</span>
+              </div>
+
+              <div class="grid grid-cols-2 gap-3 mb-4">
+                <div class="rounded-2xl bg-[#fff6d8] p-3">
+                  <p class="text-[11px] font-black text-[#7c7264] uppercase mb-1">Checked 去程</p>
+                  <p class="text-[25px] font-black leading-none text-[#b9472f]">20 KG</p>
+                  <p class="text-[11px] font-bold text-[#7c7264] mt-1">單件 x 4件</p>
+                </div>
+                <div class="rounded-2xl bg-[#edf1e6] p-3">
+                  <p class="text-[11px] font-black text-[#7c7264] uppercase mb-1">Checked 回程</p>
+                  <p class="text-[25px] font-black leading-none text-[#64735a]">23 KG</p>
+                  <p class="text-[11px] font-bold text-[#7c7264] mt-1">單件 x 6件</p>
+                </div>
+                <div class="rounded-2xl bg-[#fff6d8] p-3">
+                  <p class="text-[11px] font-black text-[#7c7264] uppercase mb-1">Carry-on 去程</p>
+                  <p class="text-[25px] font-black leading-none text-[#b9472f]">7 KG</p>
+                  <p class="text-[11px] font-bold text-[#7c7264] mt-1">1隨身+1手提</p>
+                  <p class="text-[10px] font-bold text-[#9a8b75] mt-1 leading-snug">三邊 115cm 內</p>
+                </div>
+                <div class="rounded-2xl bg-[#edf1e6] p-3">
+                  <p class="text-[11px] font-black text-[#7c7264] uppercase mb-1">Carry-on 回程</p>
+                  <p class="text-[25px] font-black leading-none text-[#64735a]">7 KG</p>
+                  <p class="text-[11px] font-bold text-[#7c7264] mt-1">1隨身+1手提</p>
+                  <p class="text-[10px] font-bold text-[#7d8a72] mt-1 leading-snug">個人物品 40 × 30 × 10cm</p>
+                </div>
+              </div>
+
+              <div class="rounded-2xl bg-[#f8f3ea] p-4 text-[14px] font-bold leading-relaxed text-[#4f463b] space-y-3">
+                <div>
+                  <p class="text-[#b9472f] font-black mb-1">⚠️ 禁止託運（必須隨身）</p>
+                  <p>• 行動電源、鋰電池、打火機（限一個）</p>
+                </div>
+                <div>
+                  <p class="text-[#b9472f] font-black mb-1">🚫 禁止上機（需託運/拋棄）</p>
+                  <p>• 單罐超過 100ml 液體、噴霧、刀剪類</p>
+                </div>
+              </div>
+            </section>
+
+            <section class="bg-[#64735a] rounded-3xl p-5 text-white shadow-lg">
+              <div class="flex items-center justify-between mb-5">
+                <h3 class="text-base font-black flex items-center gap-2"><i data-lucide="hotel" class="w-5 h-5"></i> 住宿飯店資訊</h3>
+                <span class="text-[10px] font-black border border-white/30 rounded-full px-2 py-1">3 HOTELS</span>
+              </div>
+              <div class="space-y-5">
+                <div class="flex gap-4 items-start">
+                  <div class="w-12 h-12 rounded-2xl bg-white/18 flex flex-col items-center justify-center flex-shrink-0">
+                    <span class="text-[10px] font-black text-[#ffe2a4]">D1-D2</span>
+                    <i data-lucide="bed" class="w-4 h-4 text-white/80"></i>
+                  </div>
+                  <div class="min-w-0 flex-1">
+                    <div class="flex items-start justify-between gap-2">
+                      <h4 class="text-[17px] font-black leading-snug text-white">高山知豪酒店</h4>
+                      <a href="https://www.google.com/maps/search/?api=1&query=%E9%AB%98%E5%B1%B1%E7%9F%A5%E8%B1%AA%E9%85%92%E5%BA%97" target="_blank" class="p-2 rounded-full bg-white/15 text-[#ffe2a4] active:scale-90 transition flex-shrink-0"><i data-lucide="external-link" class="w-4 h-4"></i></a>
+                    </div>
+                    <p class="text-[12px] text-white/68 leading-relaxed font-bold mt-1 pl-1">高山巴士中心步行約 3 分鐘。</p>
+                  </div>
+                </div>
+
+                <div class="flex gap-4 items-start">
+                  <div class="w-12 h-12 rounded-2xl bg-white/18 flex flex-col items-center justify-center flex-shrink-0">
+                    <span class="text-[10px] font-black text-[#ffe2a4]">D3</span>
+                    <i data-lucide="building-2" class="w-4 h-4 text-white/80"></i>
+                  </div>
+                  <div class="min-w-0 flex-1">
+                    <div class="flex items-start justify-between gap-2">
+                      <h4 class="text-[17px] font-black leading-snug text-white">大和魯內飯店 名古屋新幹線口</h4>
+                      <a href="https://www.google.com/maps/search/?api=1&query=%E5%A4%A7%E5%92%8C%E9%AD%AF%E5%85%A7%E9%A3%AF%E5%BA%97%20%E5%90%8D%E5%8F%A4%E5%B1%8B%E6%96%B0%E5%B9%B9%E7%B7%9A%E5%8F%A3" target="_blank" class="p-2 rounded-full bg-white/15 text-[#ffe2a4] active:scale-90 transition flex-shrink-0"><i data-lucide="external-link" class="w-4 h-4"></i></a>
+                    </div>
+                    <p class="text-[12px] text-white/68 leading-relaxed font-bold mt-1 pl-1">JR 名古屋站步行約 3 分鐘。</p>
+                  </div>
+                </div>
+
+                <div class="flex gap-4 items-start">
+                  <div class="w-12 h-12 rounded-2xl bg-white/18 flex flex-col items-center justify-center flex-shrink-0">
+                    <span class="text-[10px] font-black text-[#ffe2a4]">D4-D6</span>
+                    <i data-lucide="landmark" class="w-4 h-4 text-white/80"></i>
+                  </div>
+                  <div class="min-w-0 flex-1">
+                    <div class="flex items-start justify-between gap-2">
+                      <h4 class="text-[17px] font-black leading-snug text-white">KOKO HOTEL Osaka Namba Sennichimae</h4>
+                      <a href="https://www.google.com/maps/search/?api=1&query=KOKO%20HOTEL%20Osaka%20Namba%20Sennichimae" target="_blank" class="p-2 rounded-full bg-white/15 text-[#ffe2a4] active:scale-90 transition flex-shrink-0"><i data-lucide="external-link" class="w-4 h-4"></i></a>
+                    </div>
+                    <p class="text-[12px] text-white/68 leading-relaxed font-bold mt-1 pl-1">難波／千日前一帶，逛街與用餐方便。</p>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section class="bg-white rounded-3xl p-5 shadow-sm">
+              <h3 class="text-[12px] font-black text-[#b9472f] tracking-widest uppercase mb-4">Google Maps 清單</h3>
+              <p class="text-sm leading-relaxed text-[#5f5549] font-medium mb-4">已儲存的「高山名古屋大阪」景點清單。</p>
+              <a href="${mapListUrl}" target="_blank" class="flex items-center justify-center gap-2 rounded-2xl bg-[#b9472f] text-white py-4 text-sm font-black active:scale-[0.98] transition"><i data-lucide="map"></i> 開啟 Google Maps 清單</a>
+            </section>
+
+            <section class="bg-[#fff6d8] rounded-3xl p-5 shadow-sm">
+              <h3 class="text-base font-black text-[#6a5140] flex items-center gap-2 mb-3"><i data-lucide="alert-circle" class="w-5 h-5"></i> 緊急狀況聯繫</h3>
+              <p class="text-sm leading-relaxed font-bold text-[#6a5140]">
+                                 外交部專線：0800-085-095<br>
+                                 駐日辦事處：(81-3) 32807811<br>
+                                 緊急熱線：110 (警) / 119 (救護) 表明台灣人</p>
+            </section>
+          </div>
+        `;
+      }
+
+      function formatTransportInfo(text) {
+        return text
+          .split("\n")
+          .map((line) => line.trim())
+          .filter(Boolean)
+          .map((line) => {
+            return '<div class="transport-row">' + formatTransportInline(line) + '</div>';
+          })
+          .join("");
+      }
+
+      function formatTransportInline(text) {
+        return escapeHtmlText(text)
+          .replace(/\{red\s*[：:]\s*([^{}]+)\}/g, '<span class="transport-red">$1</span>')
+          .replace(/\{blue\s*[：:]\s*([^{}]+)\}/g, '<span class="transport-blue">$1</span>')
+          .replace(/\{green\s*[：:]\s*([^{}]+)\}/g, '<span class="transport-green">$1</span>')
+          .replace(/\*\*([^*]+)\*\*/g, '<span class="transport-strong">$1</span>')
+          .replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, (_, label, url) =>
+            '<a href="' + url + '" target="_blank" onclick="event.stopPropagation()" class="inline-flex items-center gap-1 text-[#b9472f] underline underline-offset-2 font-black"><i data-lucide="external-link" class="w-3.5 h-3.5"></i>' + label + '</a>'
+          );
+      }
+
+      function escapeHtmlText(value) {
+        return String(value)
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;");
+      }
+
+      function formatTextLinks(text) {
+        return escapeHtmlText(text)
+          .split("\n")
+          .map((line) => {
+            return line.replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, (_, label, url) =>
+              '<a href="' + url + '" target="_blank" onclick="event.stopPropagation()" class="inline-flex items-center gap-1 text-[#b9472f] underline underline-offset-2 font-black"><i data-lucide="external-link" class="w-3.5 h-3.5"></i>' + label + '</a>'
+            );
+          })
+          .join("\n");
+      }
+
+      function formatNoteInfo(text) {
+        return formatTextLinks(text);
+      }
+
+      function renderDay(container) {
+        const data = tripData[currentView];
+        document.getElementById("header-title").innerText = "Day " + currentView + ": " + data.title;
+        document.getElementById("header-subtitle").innerText = data.date + " " + data.dayLabel;
+        setWeatherVisible(true);
+        document.getElementById("header-loc").innerText = data.location;
+        updateTemperatureByLocation(data.location);
+        container.classList.add("timeline-line");
+        container.innerHTML = "";
+        if (data.reminder) {
+          container.innerHTML += '<div class="relative z-10 mb-4 bg-[#fff6d8] rounded-2xl p-4 flex items-start gap-3 shadow-sm"><i data-lucide="alert-circle" class="w-5 h-5 mt-0.5 text-[#b9472f] flex-shrink-0"></i><p class="text-[14px] text-[#6a5140] font-black leading-relaxed whitespace-pre-line">' + data.reminder + '</p></div>';
+        }
+        data.events.forEach((ev) => {
+          const card = document.createElement("article");
+          card.className = "relative z-10 group mb-4 w-full";
+          card.onclick = (event) => {
+            if (event.target.closest("a")) return;
+            card.classList.toggle("expanded");
+          };
+          const icon = iconByType[ev.type] || "circle";
+          const noteHtml = ev.note ? '<div class="rounded-2xl bg-[#f8f3ea] p-3 text-[14px] text-[#5f5549] font-medium leading-relaxed whitespace-pre-line"><div class="flex items-center gap-2 text-[12px] font-black text-[#b9472f] mb-1"><i data-lucide="info" class="w-4 h-4"></i>備註</div>' + formatNoteInfo(ev.note) + '</div>' : "";
+          const transportHtml = ev.transport ? '<div class="rounded-2xl bg-[#e8f0f2] border-l-4 border-[#485f73] p-3 text-[14px] text-[#3f3a32] font-medium leading-relaxed"><div class="flex items-center gap-2 text-[12px] font-black text-[#485f73] mb-2"><i data-lucide="navigation" class="w-4 h-4"></i>交通資訊</div><div class="space-y-2">' + formatTransportInfo(ev.transport) + '</div></div>' : "";
+          const reservedHtml = [ev.title, ev.intro, ev.note].filter(Boolean).join(" ").includes("已訂位")
+            ? '<span class="inline-block text-[10px] font-black px-2.5 py-1 rounded-full bg-[#fff0df] text-[#b9472f] mb-2 tracking-wide">已訂位</span>'
+            : "";
+          card.innerHTML = `
+            <div class="flex gap-4 min-w-0">
+              <div class="flex flex-col items-center flex-shrink-0 pt-1">
+                <span class="text-[13px] font-black text-[#7c7264] mb-3 w-12 text-center uppercase bg-[#f8f3ea] z-10 px-1">${ev.time}</span>
+                <div class="w-9 h-9 rounded-2xl bg-white border border-[#eadfce] shadow-sm flex items-center justify-center z-10 group-[.expanded]:bg-[#b9472f] group-[.expanded]:text-white transition">
+                  <i data-lucide="${icon}" class="w-4 h-4"></i>
+                </div>
+              </div>
+              <div class="event-card flex-grow bg-white rounded-3xl shadow-sm p-4 group-[.expanded]:shadow-lg transition-all">
+                <div class="flex justify-between items-start gap-3">
+                  <div class="min-w-0">
+                    <div class="flex items-center gap-2 flex-wrap">
+                      <span class="inline-block text-[10px] font-black px-2.5 py-1 rounded-full ${typeColors[ev.color] || "bg-slate-50"} mb-2 uppercase tracking-wide">${ev.type}</span>
+                      ${reservedHtml}
+                    </div>
+                    <h3 class="event-title text-[17px] font-black text-[#3f3a32] leading-snug">${ev.title}</h3>
+                    <div class="flex items-center gap-2 mt-2 min-w-0">
+                      <p class="text-[12px] text-[#7c7264] font-bold leading-snug flex items-center min-w-0 flex-1"><i data-lucide="map-pin" class="w-4 h-4 mr-1.5 flex-shrink-0"></i><span class="event-loc">${ev.loc || ""}</span></p>
+                      <a href="${mapSearch(ev.loc || ev.title)}" target="_blank" class="p-2 rounded-full bg-[#f8f3ea] text-[#b9472f] active:scale-90 transition" onclick="event.stopPropagation()"><i data-lucide="external-link" class="w-4 h-4"></i></a>
+                    </div>
+                  </div>
+                  <i data-lucide="chevron-down" class="w-5 h-5 text-[#bda88d] transition-transform group-[.expanded]:rotate-180"></i>
+                </div>
+                <div class="expand-content">
+                  <div class="space-y-3 pt-4 pb-3 mt-4 border-t border-[#f0e5d5] min-w-0">
+                    ${transportHtml}
+                    <p class="text-[15px] text-[#4f463b] leading-relaxed font-medium whitespace-pre-line">${ev.intro ? formatTextLinks(ev.intro) : ""}</p>
+                    ${noteHtml}
+                    ${linkPills(ev.saved)}
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      }
+
+      function renderChecklist(container) {
+        document.getElementById("header-title").innerText = "必備攜帶清單";
+        document.getElementById("header-subtitle").innerText = "Travel Preparation";
+        setWeatherVisible(false);
+        container.classList.remove("timeline-line");
+        container.innerHTML = '<div class="space-y-4 pb-12">' + checklistData.map((cat) =>
+          '<section class="bg-white rounded-3xl p-5 shadow-sm"><h3 class="text-base font-black text-[#3f3a32] mb-4 flex items-center gap-2"><i data-lucide="check-square" class="w-5 h-5 text-[#b9472f]"></i>' + cat.category + '</h3><div class="grid grid-cols-1 gap-3">' + cat.items.map((item) =>
+            '<label class="check-item flex items-center gap-3 cursor-pointer py-1"><input type="checkbox" class="hidden"><div class="w-6 h-6 rounded-full border-2 border-[#cdb99e] transition-all flex-shrink-0"></div><span class="text-[15px] text-[#3f3a32] font-bold transition-all">' + item + '</span></label>'
+          ).join("") + '</div></section>'
+        ).join("") + '</div>';
+      }
+
+      function renderTips(container) {
+        document.getElementById("header-title").innerText = "秋日旅行提醒";
+        document.getElementById("header-subtitle").innerText = "Guidance";
+        setWeatherVisible(false);
+        container.classList.remove("timeline-line");
+        container.innerHTML = '<div class="space-y-4 pb-12">' + tipsData.map((tip) =>
+          '<section class="bg-white rounded-3xl p-5 shadow-sm flex gap-4"><div class="mt-1 w-12 h-12 rounded-2xl bg-[#edf1e6] flex items-center justify-center flex-shrink-0"><i data-lucide="' + tip.icon + '" class="w-6 h-6 text-[#64735a]"></i></div><div><h3 class="text-base font-black text-[#3f3a32] mb-2">' + tip.title + '</h3><p class="text-[15px] text-[#5f5549] font-medium leading-relaxed">' + tip.content + '</p></div></section>'
+        ).join("") + '</div>';
+      }
+
+      function renderLang(container) {
+        document.getElementById("header-title").innerText = "常用日文";
+        document.getElementById("header-subtitle").innerText = "Travel Phrases";
+        setWeatherVisible(false);
+        container.classList.remove("timeline-line");
+        container.innerHTML = '<div class="space-y-5 pb-12">' + phrasesData.map((cat) =>
+          '<section><h3 class="text-[13px] font-black text-[#b9472f] tracking-widest uppercase mb-3 ml-2 border-l-4 border-[#b9472f] pl-3">' + cat.cat + '</h3><div class="grid grid-cols-1 gap-3">' + cat.list.map((item) =>
+            '<div class="bg-white rounded-3xl p-5 shadow-sm"><span class="inline-block text-[12px] font-black text-[#b9472f] bg-[#fff0df] px-3 py-1 rounded-full mb-3">' + item.zh + '</span><p class="text-lg font-black text-[#3f3a32] leading-tight">' + item.en + '</p><p class="text-base font-bold text-[#3f3a32] leading-tight mt-2">' + item.jp + '</p><p class="text-sm text-[#7c7264] italic font-bold mt-1">' + item.pron + '</p></div>'
+          ).join("") + '</div></section>'
+        ).join("") + '</div>';
+      }
+
+      function renderContent() {
+        const container = document.getElementById("main-content");
+        container.innerHTML = "";
+        container.classList.remove("timeline-line");
+        if (currentView === "home") renderHome(container);
+        else if (typeof currentView === "number") renderDay(container);
+        else if (currentView === "checklist") renderChecklist(container);
+        else if (currentView === "tips") renderTips(container);
+        else if (currentView === "lang") renderLang(container);
+        lucide.createIcons();
+      }
+
+      window.onload = () => setView("home");
+    </script>
+  </body>
+</html>
+
+
