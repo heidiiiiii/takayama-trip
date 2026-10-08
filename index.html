@@ -153,10 +153,44 @@
         color: #64735a;
         font-weight: 900;
       }
+      .falling-leaves {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        overflow: hidden;
+      }
+      .falling-leaves span {
+        position: absolute;
+        top: -12vh;
+        color: rgba(185, 71, 47, 0.18);
+        font-size: 18px;
+        animation: maple-fall linear infinite;
+        filter: blur(0.1px);
+      }
+      .falling-leaves span:nth-child(1) { left: 8%; animation-duration: 18s; animation-delay: -3s; font-size: 15px; }
+      .falling-leaves span:nth-child(2) { left: 24%; animation-duration: 24s; animation-delay: -12s; color: rgba(215, 169, 77, 0.16); }
+      .falling-leaves span:nth-child(3) { left: 43%; animation-duration: 20s; animation-delay: -7s; font-size: 13px; }
+      .falling-leaves span:nth-child(4) { left: 61%; animation-duration: 27s; animation-delay: -16s; color: rgba(100, 115, 90, 0.13); }
+      .falling-leaves span:nth-child(5) { left: 78%; animation-duration: 21s; animation-delay: -9s; font-size: 16px; }
+      .falling-leaves span:nth-child(6) { left: 92%; animation-duration: 26s; animation-delay: -20s; color: rgba(212, 123, 69, 0.15); font-size: 14px; }
+      @keyframes maple-fall {
+        0% { transform: translate3d(0, -12vh, 0) rotate(0deg); opacity: 0; }
+        12% { opacity: 0.75; }
+        50% { transform: translate3d(22px, 48vh, 0) rotate(135deg); }
+        100% { transform: translate3d(-18px, 112vh, 0) rotate(310deg); opacity: 0; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .falling-leaves { display: none; }
+      }
     </style>
   </head>
   <body class="pb-24">
-    <section class="hero relative overflow-hidden px-6 pt-8 pb-7 text-white">
+    <div class="falling-leaves" aria-hidden="true">
+      <span>🍁</span><span>🍂</span><span>🍁</span><span>🍂</span><span>🍁</span><span>🍂</span>
+    </div>
+
+    <section class="hero relative z-10 overflow-hidden px-6 pt-8 pb-7 text-white">
       <span class="leaf w-20 h-20 bg-[#d7a94d] -top-6 left-8"></span>
       <span class="leaf w-14 h-14 bg-[#f4c26b] bottom-8 right-10"></span>
       <div class="relative z-10 max-w-md mx-auto">
@@ -189,7 +223,7 @@
       </div>
     </header>
 
-    <main class="max-w-md mx-auto px-4 py-4 relative" id="main-content"></main>
+    <main class="max-w-md mx-auto px-4 py-4 relative z-10" id="main-content"></main>
 
     <nav class="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 glass bottom-nav rounded-[24px] shadow-2xl shadow-[#6f4b2d]/20 p-1.5">
       <div class="flex items-center justify-center gap-1 w-full">
